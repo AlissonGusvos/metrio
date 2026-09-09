@@ -1,5 +1,6 @@
 package com.metrio.Metrio.controller;
 
+import com.metrio.Metrio.dto.UserLoginRequest;
 import com.metrio.Metrio.dto.UserRegisterRequest;
 import com.metrio.Metrio.models.User;
 import com.metrio.Metrio.service.AuthService;
@@ -20,5 +21,10 @@ public class AuthController {
     public ResponseEntity<String> register(@RequestBody UserRegisterRequest request){
         authService.userRegister(request);
         return ResponseEntity.ok("Usuário cadastrado");
+    }
+
+    @PostMapping("/login")
+    public String login(@RequestBody UserLoginRequest request){
+        return authService.userLogin(request);
     }
 }
