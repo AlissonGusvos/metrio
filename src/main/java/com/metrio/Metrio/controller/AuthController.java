@@ -1,5 +1,6 @@
 package com.metrio.Metrio.controller;
 
+import com.metrio.Metrio.dto.UserRegisterRequest;
 import com.metrio.Metrio.models.User;
 import com.metrio.Metrio.service.AuthService;
 import org.springframework.http.ResponseEntity;
@@ -16,7 +17,7 @@ public class AuthController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<String> register(@RequestBody User request){
+    public ResponseEntity<String> register(@RequestBody UserRegisterRequest request){
         authService.userRegister(request);
         return ResponseEntity.ok("Usuário cadastrado");
     }

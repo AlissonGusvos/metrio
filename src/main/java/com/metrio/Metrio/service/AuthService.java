@@ -1,5 +1,6 @@
 package com.metrio.Metrio.service;
 
+import com.metrio.Metrio.dto.UserRegisterRequest;
 import com.metrio.Metrio.models.User;
 import com.metrio.Metrio.repository.UserRepository;
 import org.springframework.stereotype.Service;
@@ -13,15 +14,17 @@ public class AuthService {
         this.userRepository = userRepository;
     }
 
-    public void userRegister(User request){
-        User newUser = new User();
-        newUser.setUsername(request.getUsername());
-        newUser.setEmail(request.getEmail());
-        newUser.setHashPassword(request.getHashPassword());
-        newUser.setUserType("GERENTE");
-        newUser.setUserStatus("ATIVO");
+    public void userRegister(UserRegisterRequest request){
 
-        userRepository.save(newUser);
+        User user = new User();
+
+        user.setUsername(request.username());
+        user.setEmail(request.email());
+        user.setHashPassword(request.password());
+        user.setUserType("ASSISTENTE");
+        user.setUserStatus("ATIVO");
+
+        userRepository.save(user);
     }
 
 }

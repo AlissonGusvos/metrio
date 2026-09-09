@@ -1,4 +1,10 @@
 package com.metrio.Metrio.dto;
 
-public record UserRegisterRequest() {
+import org.springframework.context.annotation.Bean;
+
+public record UserRegisterRequest(
+        String username,
+        String email,
+        String password
+) {
 }
