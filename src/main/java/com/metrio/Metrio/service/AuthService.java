@@ -4,6 +4,7 @@ import com.metrio.Metrio.dto.UserLoginRequest;
 import com.metrio.Metrio.dto.UserRegisterRequest;
 import com.metrio.Metrio.models.User;
 import com.metrio.Metrio.repository.UserRepository;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -30,28 +31,21 @@ public class AuthService {
         userRepository.save(user);
     }
 
-    public String userLogin(UserLoginRequest request){
+    public void userLogin(UserLoginRequest request, HttpSession session){
 
         Optional<User> userOptional = userRepository.findByEmail(request.email());
 
         if (userOptional.isEmpty()){
-            return "E-mail ou senha inválidos";
+            throw new RuntimeException("E-mail ou senha inválidos");
         }
 
         User user = userOptional.get();
 
-        if (user.getEmail().equals(request.email())){
-            if (user.getHashPassword().equals(request.password())){
-                return "Login feito com sucesso";
-            }
-            else {
-                return "E-mail ou senha inválidos";
-            }
-        }
-        else {
-            return "E-mail ou senha inválidos";
+        if (!user.getHashPassword().equals(request.password())){
+            throw new RuntimeException("E-mail ou senha inválidos");
         }
 
+        session.setAttribute("userId", user.getId());
     }
 
 }
