@@ -34,20 +34,4 @@ public class AuthController {
         session.invalidate();
         return "Deslogado!";
     }
-
-    /*
-    TESTE DE SESSÃO
-
-    @GetMapping("/me")
-    public String me(HttpSession session){
-        Long userId = (Long) session.getAttribute("userId");
-
-        if (userId == null){
-            return "Usuário não logado";
-        }
-
-        return "Usuário logado: " + userId;
-    }
-
-     */
 }
